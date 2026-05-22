@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portafolio | Pr1moBIT - Junior Data Scientist</title>
+    <title>Portafolio | Gianpier Giandoni</title>
     <style>
         /* Paleta de Colores y Variables */
         :root {
@@ -53,7 +53,7 @@
         }
         header h1 { 
             margin: 0; 
-            font-size: 3.5rem; 
+            font-size: 3.8rem; 
             letter-spacing: 2px;
             background: -webkit-linear-gradient(45deg, var(--accent-cyan), var(--accent-purple));
             -webkit-background-clip: text;
@@ -61,11 +61,13 @@
             animation: fadeInUp 0.8s ease forwards;
         }
         header p { 
-            margin: 0.5rem 0 2rem; 
-            font-size: 1.3rem; 
+            margin: 0.5rem auto 2rem; 
+            font-size: 1.2rem; 
+            max-width: 800px;
             color: var(--text-muted); 
             animation: fadeInUp 0.8s ease 0.2s forwards;
             opacity: 0;
+            line-height: 1.8;
         }
         
         .github-link {
@@ -146,12 +148,11 @@
             position: relative;
         }
 
-        /* Efecto hover: borde neón y ligero resplandor interno/externo, SIN cambiar el fondo sólido */
         .card:hover { 
             transform: translateY(-10px); 
             border-color: var(--accent-cyan);
             box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 15px var(--glow-cyan), inset 0 0 20px rgba(0, 242, 254, 0.05);
-            background: rgba(22, 38, 56, 0.95); /* Apenas un tono más claro, el texto se lee perfecto */
+            background: rgba(22, 38, 56, 0.95);
         }
 
         .card h3 { margin-top: 0; color: var(--accent-cyan); font-size: 1.5rem; margin-bottom: 1rem;}
@@ -229,8 +230,12 @@
     <canvas id="particles-canvas"></canvas>
 
     <header>
-        <h1>Pr1moBIT</h1>
-        <p>Junior Data Scientist | Santa Coloma de Gramenet, España</p>
+        <h1>Gianpier Giandoni</h1>
+        <p>
+            Data Scientist & Operations Manager | AI Specialist<br>
+            Transforming Complex Data into Actionable Operational Strategies<br>
+            📍 Barcelona, España
+        </p>
         <a href="https://github.com/Pr1moBIT" class="github-link" target="_blank">Explorar GitHub</a>
     </header>
 
@@ -238,7 +243,7 @@
         
         <div class="about-section">
             <h2>Sobre mí y mi filosofía de código</h2>
-            <p>Soy un Data Scientist Junior en constante formación. A lo largo de mis repositorios notarás que escribo código de una manera muy <strong>práctica y manual</strong>. Mi filosofía es clara: para dominar el Machine Learning y la Inteligencia Artificial, primero hay que ensuciarse las manos. Entender las matemáticas subyacentes, estructurar consultas, limpiar valores atípicos y aplicar transformaciones paso a paso sin depender ciegamente de cajas negras o abstracciones. Esto me otorga un control absoluto y una comprensión real sobre el ciclo de vida de los datos.</p>
+            <p>Soy un profesional en constante formación combinando la Ciencia de Datos con la Gestión de Operaciones. A lo largo de mis repositorios notarás que escribo código de una manera muy <strong>práctica y manual</strong>. Mi filosofía es clara: para dominar el Machine Learning y la Inteligencia Artificial, primero hay que ensuciarse las manos. Entender las matemáticas subyacentes, estructurar consultas, limpiar valores atípicos y aplicar transformaciones paso a paso sin depender ciegamente de cajas negras o abstracciones. Esto me otorga un control absoluto y una comprensión real sobre el ciclo de vida de los datos para transformarlos en estrategias operativas accionables.</p>
         </div>
 
         <h2 class="section-title">Laboratorio de Proyectos</h2>
@@ -327,7 +332,7 @@
     </div>
 
     <footer>
-        <p>&copy; 2026 Pr1moBIT. Construyendo bases sólidas en Datos.</p>
+        <p>&copy; 2026 Gianpier Giandoni. Construyendo bases sólidas en Datos.</p>
     </footer>
 
     <!-- Script para el fondo interactivo de nodos -->
@@ -382,7 +387,6 @@
         // Inicializar partículas
         function init() {
             particles = [];
-            // Número de partículas según el ancho de la pantalla
             let numberOfParticles = (width * height) / 10000;
             for (let i = 0; i < numberOfParticles; i++) {
                 particles.push(new Particle());
