@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio | Pr1moBIT - Junior Data Scientist</title>
+    <style>
+        /* Paleta de Colores y Variables */
+        :root {
+            --bg-dark: #070f1a;
+            --card-dark: #121e2d;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-cyan: #00f2fe;
+            --accent-purple: #4facfe;
+            --glow-cyan: rgba(0, 242, 254, 0.5);
+        }
+
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            line-height: 1.6; 
+            margin: 0; 
+            padding: 0; 
+            background-color: var(--bg-dark); 
+            color: var(--text-main); 
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Canvas del fondo interactivo */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(to bottom, #070f1a, #0b1727);
+        }
+        
+        /* Animaciones Keyframes */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Encabezado */
+        header { 
+            padding: 6rem 0 4rem; 
+            text-align: center; 
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            background: radial-gradient(circle at center, rgba(18, 30, 45, 0.8) 0%, transparent 70%);
+        }
+        header h1 { 
+            margin: 0; 
+            font-size: 3.5rem; 
+            letter-spacing: 2px;
+            background: -webkit-linear-gradient(45deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        header p { 
+            margin: 0.5rem 0 2rem; 
+            font-size: 1.3rem; 
+            color: var(--text-muted); 
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+            opacity: 0;
+        }
+        
+        .github-link {
+            display: inline-block;
+            color: var(--text-main);
+            text-decoration: none;
+            border: 2px solid var(--accent-cyan);
+            padding: 0.8rem 2.5rem;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease 0.4s forwards;
+            opacity: 0;
+            background: rgba(0, 242, 254, 0.05);
+        }
+        .github-link:hover {
+            background: var(--accent-cyan);
+            color: #000;
+            box-shadow: 0 0 20px var(--glow-cyan);
+            transform: translateY(-3px);
+        }
+
+        /* Contenedor Principal */
+        .container { 
+            width: 90%; 
+            max-width: 1200px; 
+            margin: auto; 
+            padding: 4rem 0; 
+        }
+        
+        /* Sección Sobre Mí */
+        .about-section {
+            background: rgba(18, 30, 45, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: 15px;
+            margin-bottom: 4rem;
+            border-left: 4px solid var(--accent-cyan);
+            animation: fadeInUp 0.8s ease 0.6s forwards;
+            opacity: 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            border-right: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .about-section h2 { margin-top: 0; color: var(--accent-cyan); font-size: 1.8rem;}
+        .about-section p { font-size: 1.1rem; color: var(--text-muted); }
+        .about-section strong { color: var(--text-main); }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--text-main);
+            animation: fadeInUp 0.8s ease 0.8s forwards;
+            opacity: 0;
+        }
+
+        /* Cuadrícula de Proyectos */
+        .projects-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            gap: 2.5rem; 
+        }
+        
+        /* Tarjetas de Proyecto con Hover Corregido */
+        .card { 
+            background: rgba(18, 30, 45, 0.85); 
+            backdrop-filter: blur(5px);
+            border-radius: 15px; 
+            padding: 2.2rem; 
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 1s forwards;
+            position: relative;
+        }
+
+        /* Efecto hover: borde neón y ligero resplandor interno/externo, SIN cambiar el fondo sólido */
+        .card:hover { 
+            transform: translateY(-10px); 
+            border-color: var(--accent-cyan);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 15px var(--glow-cyan), inset 0 0 20px rgba(0, 242, 254, 0.05);
+            background: rgba(22, 38, 56, 0.95); /* Apenas un tono más claro, el texto se lee perfecto */
+        }
+
+        .card h3 { margin-top: 0; color: var(--accent-cyan); font-size: 1.5rem; margin-bottom: 1rem;}
+        .objective { margin-bottom: 1.5rem; color: var(--text-muted); flex-grow: 1; font-size: 0.95rem; }
+        .objective strong { color: var(--text-main); }
+        
+        /* Tecnologías (Badges) */
+        .tech-stack { 
+            margin: 1rem 0 2rem 0; 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 0.6rem; 
+        }
+        .tech-badge { 
+            background: rgba(255, 255, 255, 0.03); 
+            color: var(--accent-purple); 
+            padding: 0.4rem 0.8rem; 
+            border-radius: 8px; 
+            font-size: 0.82rem; 
+            font-weight: 700; 
+            border: 1px solid rgba(79, 172, 254, 0.3);
+            transition: all 0.3s;
+        }
+        .card:hover .tech-badge {
+            border-color: var(--accent-purple);
+            color: var(--accent-cyan);
+        }
+        
+        /* Botones de enlace */
+        .btn { 
+            display: inline-block; 
+            background: transparent; 
+            color: var(--text-main); 
+            text-decoration: none; 
+            padding: 0.7rem 1.5rem; 
+            border-radius: 8px; 
+            text-align: center;
+            font-weight: bold;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s;
+        }
+        .card:hover .btn {
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+        }
+        .btn:hover { 
+            background: var(--accent-cyan) !important; 
+            color: #000 !important;
+            box-shadow: 0 0 15px var(--glow-cyan);
+        }
+
+        /* Pie de página */
+        footer { 
+            text-align: center; 
+            padding: 2rem 0; 
+            color: var(--text-muted); 
+            margin-top: 2rem; 
+            border-top: 1px solid rgba(255,255,255,0.05);
+            background: rgba(7, 15, 26, 0.9);
+            backdrop-filter: blur(5px);
+        }
+
+        /* Delays escalonados para las tarjetas */
+        .card:nth-child(1) { animation-delay: 0.8s; }
+        .card:nth-child(2) { animation-delay: 1.0s; }
+        .card:nth-child(3) { animation-delay: 1.2s; }
+        .card:nth-child(4) { animation-delay: 1.4s; }
+        .card:nth-child(5) { animation-delay: 1.6s; }
+        .card:nth-child(6) { animation-delay: 1.8s; }
+    </style>
+</head>
+<body>
+
+    <!-- Lienzo para partículas interactivas -->
+    <canvas id="particles-canvas"></canvas>
+
+    <header>
+        <h1>Pr1moBIT</h1>
+        <p>Junior Data Scientist | Santa Coloma de Gramenet, España</p>
+        <a href="https://github.com/Pr1moBIT" class="github-link" target="_blank">Explorar GitHub</a>
+    </header>
+
+    <div class="container">
+        
+        <div class="about-section">
+            <h2>Sobre mí y mi filosofía de código</h2>
+            <p>Soy un Data Scientist Junior en constante formación. A lo largo de mis repositorios notarás que escribo código de una manera muy <strong>práctica y manual</strong>. Mi filosofía es clara: para dominar el Machine Learning y la Inteligencia Artificial, primero hay que ensuciarse las manos. Entender las matemáticas subyacentes, estructurar consultas, limpiar valores atípicos y aplicar transformaciones paso a paso sin depender ciegamente de cajas negras o abstracciones. Esto me otorga un control absoluto y una comprensión real sobre el ciclo de vida de los datos.</p>
+        </div>
+
+        <h2 class="section-title">Laboratorio de Proyectos</h2>
+        
+        <div class="projects-grid">
+            
+            <div class="card">
+                <h3>MessyAdventure_</h3>
+                <div class="objective">
+                    <strong>Objetivo:</strong> Modelo de regresión Ridge para predecir ventas. Destaca por un EDA manual profundo usando SQL/Python, feature engineering meticuloso y análisis de Pareto para desentrañar el comportamiento real del inventario.
+                </div>
+                <div class="tech-stack">
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">SQL</span>
+                    <span class="tech-badge">Scikit-Learn</span>
+                </div>
+                <a href="https://github.com/Pr1moBIT/MessyAdventure_" class="btn" target="_blank">Ver Código</a>
+            </div>
+
+            <div class="card">
+                <h3>WeatherOrNot</h3>
+                <div class="objective">
+                    <strong>Objetivo:</strong> Predicción de lluvia con Machine Learning. Implementación de imputación estadística manual para valores nulos y transformación de variables temporales mediante codificación cíclica antes de usar CatBoost.
+                </div>
+                <div class="tech-stack">
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">CatBoost</span>
+                    <span class="tech-badge">XGBoost</span>
+                </div>
+                <a href="https://github.com/Pr1moBIT/WeatherOrNot" class="btn" target="_blank">Ver Código</a>
+            </div>
+
+            <div class="card">
+                <h3>SaleWhisperer</h3>
+                <div class="objective">
+                    <strong>Objetivo:</strong> Análisis predictivo para pronóstico de ventas. Enfocado en descomponer manualmente la estacionalidad y tendencia de los datos (Time Series) para afinar predicciones y generar métricas de negocio precisas.
+                </div>
+                <div class="tech-stack">
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">Pandas</span>
+                    <span class="tech-badge">Statsmodels</span>
+                </div>
+                <a href="https://github.com/Pr1moBIT/SaleWhisperer" class="btn" target="_blank">Ver Código</a>
+            </div>
+
+            <div class="card">
+                <h3>IsThisAHorse</h3>
+                <div class="objective">
+                    <strong>Objetivo:</strong> Proyecto de Visión Artificial desde cero. Manipulación matricial de píxeles, normalización manual de tensores y construcción de la arquitectura fundacional para clasificación de imágenes sin depender de modelos opacos.
+                </div>
+                <div class="tech-stack">
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">OpenCV</span>
+                    <span class="tech-badge">Deep Learning</span>
+                </div>
+                <a href="https://github.com/Pr1moBIT/IsThisAHorse" class="btn" target="_blank">Ver Código</a>
+            </div>
+
+            <div class="card">
+                <h3>Salty or Sweet AI</h3>
+                <div class="objective">
+                    <strong>Objetivo:</strong> Lector de reseñas de películas usando NLP. Implementación manual de la limpieza de texto (Regex) y vectorización de palabras para comprender la lógica de frecuencias antes de aplicar clasificadores de lenguaje.
+                </div>
+                <div class="tech-stack">
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">NLTK / Regex</span>
+                    <span class="tech-badge">Scikit-Learn</span>
+                </div>
+                <a href="https://github.com/Pr1moBIT/Salty-or-Sweet-AI-Movie-Review-Reader" class="btn" target="_blank">Ver Código</a>
+            </div>
+
+            <div class="card">
+                <h3>Fast and Curious</h3>
+                <div class="objective">
+                    <strong>Objetivo:</strong> Herramienta ágil de extracción web y Data Mining. Parseo manual de estructuras DOM (Scraping) y limpieza algorítmica de datos no estructurados para generar insights exploratorios rápidos y efectivos.
+                </div>
+                <div class="tech-stack">
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">BeautifulSoup</span>
+                    <span class="tech-badge">Data Mining</span>
+                </div>
+                <a href="https://github.com/Pr1moBIT/Fast-and-Curious" class="btn" target="_blank">Ver Código</a>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Pr1moBIT. Construyendo bases sólidas en Datos.</p>
+    </footer>
+
+    <!-- Script para el fondo interactivo de nodos -->
+    <script>
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        let width, height;
+        let particles = [];
+        
+        // Configuración del ratón
+        let mouse = { x: null, y: null, radius: 150 };
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.x;
+            mouse.y = e.y;
+        });
+
+        // Ajustar el canvas al tamaño de la ventana
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        // Clase Partícula
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.speedY = Math.random() * 1 - 0.5;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                // Rebotar en los bordes
+                if (this.x > width || this.x < 0) this.speedX *= -1;
+                if (this.y > height || this.y < 0) this.speedY *= -1;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(0, 242, 254, 0.5)';
+                ctx.fill();
+            }
+        }
+
+        // Inicializar partículas
+        function init() {
+            particles = [];
+            // Número de partículas según el ancho de la pantalla
+            let numberOfParticles = (width * height) / 10000;
+            for (let i = 0; i < numberOfParticles; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        // Animar y conectar nodos
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+                
+                // Conectar con otras partículas
+                for (let j = i; j < particles.length; j++) {
+                    let dx = particles[i].x - particles[j].x;
+                    let dy = particles[i].y - particles[j].y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < 100) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(0, 242, 254, ${0.2 - distance/500})`;
+                        ctx.lineWidth = 1;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+
+                // Conectar con el ratón
+                if (mouse.x != null) {
+                    let dxMouse = particles[i].x - mouse.x;
+                    let dyMouse = particles[i].y - mouse.y;
+                    let distanceMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
+                    
+                    if (distanceMouse < mouse.radius) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(79, 172, 254, ${0.4 - distanceMouse/mouse.radius})`;
+                        ctx.lineWidth = 1.5;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(mouse.x, mouse.y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+
+        // Iniciar
+        init();
+        animate();
+    </script>
+</body>
+</html>
