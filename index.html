@@ -44,12 +44,77 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* Toggle de Idioma (Switch) */
+        .lang-switch-container {
+            position: absolute;
+            top: 25px;
+            right: 5%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 100;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        .lang-label {
+            font-weight: bold;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+        .lang-label.active {
+            color: var(--accent-cyan);
+            text-shadow: 0 0 10px var(--glow-cyan);
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 54px;
+            height: 28px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(18, 30, 45, 0.8);
+            border: 2px solid var(--accent-cyan);
+            transition: .4s;
+            border-radius: 30px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: var(--accent-cyan);
+            transition: .4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            border-color: var(--accent-purple);
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+            background-color: var(--accent-purple);
+            box-shadow: 0 0 10px rgba(79, 172, 254, 0.8);
+        }
+
         /* Encabezado */
         header { 
             padding: 6rem 0 4rem; 
             text-align: center; 
             border-bottom: 1px solid rgba(255,255,255,0.05);
             background: radial-gradient(circle at center, rgba(18, 30, 45, 0.8) 0%, transparent 70%);
+            position: relative;
         }
         header h1 { 
             margin: 0; 
@@ -230,29 +295,53 @@
     <canvas id="particles-canvas"></canvas>
 
     <header>
+        <!-- Interruptor de Idioma -->
+        <div class="lang-switch-container">
+            <span class="lang-label active" id="label-es">ES</span>
+            <label class="switch">
+                <input type="checkbox" id="lang-toggle">
+                <span class="slider"></span>
+            </label>
+            <span class="lang-label" id="label-en">EN</span>
+        </div>
+
         <h1>Gianpier Giandoni</h1>
-        <p>
-            Data Scientist & Operations Manager | AI Specialist<br>
-            Transforming Complex Data into Actionable Operational Strategies<br>
+        <p class="translatable" 
+           data-es="Data Scientist & Operations Manager | Especialista en IA<br>Transformando Datos Complejos en Estrategias Operativas Accionables<br>📍 Barcelona, España" 
+           data-en="Data Scientist & Operations Manager | AI Specialist<br>Transforming Complex Data into Actionable Operational Strategies<br>📍 Barcelona, Spain">
+            Data Scientist & Operations Manager | Especialista en IA<br>
+            Transformando Datos Complejos en Estrategias Operativas Accionables<br>
             📍 Barcelona, España
         </p>
-        <a href="https://github.com/Pr1moBIT" class="github-link" target="_blank">Explorar GitHub</a>
+        <a href="https://github.com/Pr1moBIT" class="github-link translatable" target="_blank"
+           data-es="Explorar GitHub" 
+           data-en="Explore GitHub">Explorar GitHub</a>
     </header>
 
     <div class="container">
         
         <div class="about-section">
-            <h2>Sobre mí y mi filosofía de código</h2>
-            <p>Soy un profesional en constante formación combinando la Ciencia de Datos con la Gestión de Operaciones. A lo largo de mis repositorios notarás que escribo código de una manera muy <strong>práctica y manual</strong>. Mi filosofía es clara: para dominar el Machine Learning y la Inteligencia Artificial, primero hay que ensuciarse las manos. Entender las matemáticas subyacentes, estructurar consultas, limpiar valores atípicos y aplicar transformaciones paso a paso sin depender ciegamente de cajas negras o abstracciones. Esto me otorga un control absoluto y una comprensión real sobre el ciclo de vida de los datos para transformarlos en estrategias operativas accionables.</p>
+            <h2 class="translatable" 
+                data-es="Sobre mí y mi filosofía de código" 
+                data-en="About me and my coding philosophy">Sobre mí y mi filosofía de código</h2>
+            <p class="translatable" 
+               data-es="Soy un profesional en constante formación combinando la Ciencia de Datos con la Gestión de Operaciones. A lo largo de mis repositorios notarás que escribo código de una manera muy <strong>práctica y manual</strong>. Mi filosofía es clara: para dominar el Machine Learning y la Inteligencia Artificial, primero hay que ensuciarse las manos. Entender las matemáticas subyacentes, estructurar consultas, limpiar valores atípicos y aplicar transformaciones paso a paso sin depender ciegamente de cajas negras o abstracciones. Esto me otorga un control absoluto y una comprensión real sobre el ciclo de vida de los datos para transformarlos en estrategias operativas accionables." 
+               data-en="I am a continuously learning professional combining Data Science with Operations Management. Throughout my repositories, you will notice that I write code in a very <strong>practical and manual</strong> way. My philosophy is clear: to master Machine Learning and Artificial Intelligence, you must first get your hands dirty. Understanding the underlying mathematics, structuring queries, cleaning outliers, and applying transformations step-by-step without blindly relying on black boxes or abstractions. This grants me absolute control and real understanding of the data lifecycle to transform it into actionable operational strategies.">
+                Soy un profesional en constante formación combinando la Ciencia de Datos con la Gestión de Operaciones. A lo largo de mis repositorios notarás que escribo código de una manera muy <strong>práctica y manual</strong>. Mi filosofía es clara: para dominar el Machine Learning y la Inteligencia Artificial, primero hay que ensuciarse las manos. Entender las matemáticas subyacentes, estructurar consultas, limpiar valores atípicos y aplicar transformaciones paso a paso sin depender ciegamente de cajas negras o abstracciones. Esto me otorga un control absoluto y una comprensión real sobre el ciclo de vida de los datos para transformarlos en estrategias operativas accionables.
+            </p>
         </div>
 
-        <h2 class="section-title">Laboratorio de Proyectos</h2>
+        <h2 class="section-title translatable" 
+            data-es="Laboratorio de Proyectos" 
+            data-en="Project Laboratory">Laboratorio de Proyectos</h2>
         
         <div class="projects-grid">
             
             <div class="card">
                 <h3>MessyAdventure_</h3>
-                <div class="objective">
+                <div class="objective translatable" 
+                     data-es="<strong>Objetivo:</strong> Modelo de regresión Ridge para predecir ventas. Destaca por un EDA manual profundo usando SQL/Python, feature engineering meticuloso y análisis de Pareto para desentrañar el comportamiento real del inventario." 
+                     data-en="<strong>Objective:</strong> Ridge regression model to predict sales. Stands out for deep manual EDA using SQL/Python, meticulous feature engineering, and Pareto analysis to unravel real inventory behavior.">
                     <strong>Objetivo:</strong> Modelo de regresión Ridge para predecir ventas. Destaca por un EDA manual profundo usando SQL/Python, feature engineering meticuloso y análisis de Pareto para desentrañar el comportamiento real del inventario.
                 </div>
                 <div class="tech-stack">
@@ -260,12 +349,14 @@
                     <span class="tech-badge">SQL</span>
                     <span class="tech-badge">Scikit-Learn</span>
                 </div>
-                <a href="https://github.com/Pr1moBIT/MessyAdventure_" class="btn" target="_blank">Ver Código</a>
+                <a href="https://github.com/Pr1moBIT/MessyAdventure_" class="btn translatable" target="_blank" data-es="Ver Código" data-en="View Code">Ver Código</a>
             </div>
 
             <div class="card">
                 <h3>WeatherOrNot</h3>
-                <div class="objective">
+                <div class="objective translatable" 
+                     data-es="<strong>Objetivo:</strong> Predicción de lluvia con Machine Learning. Implementación de imputación estadística manual para valores nulos y transformación de variables temporales mediante codificación cíclica antes de usar CatBoost." 
+                     data-en="<strong>Objective:</strong> Rain prediction using Machine Learning. Implementation of manual statistical imputation for null values and transformation of temporal variables via cyclical encoding before using CatBoost.">
                     <strong>Objetivo:</strong> Predicción de lluvia con Machine Learning. Implementación de imputación estadística manual para valores nulos y transformación de variables temporales mediante codificación cíclica antes de usar CatBoost.
                 </div>
                 <div class="tech-stack">
@@ -273,12 +364,14 @@
                     <span class="tech-badge">CatBoost</span>
                     <span class="tech-badge">XGBoost</span>
                 </div>
-                <a href="https://github.com/Pr1moBIT/WeatherOrNot" class="btn" target="_blank">Ver Código</a>
+                <a href="https://github.com/Pr1moBIT/WeatherOrNot" class="btn translatable" target="_blank" data-es="Ver Código" data-en="View Code">Ver Código</a>
             </div>
 
             <div class="card">
                 <h3>SaleWhisperer</h3>
-                <div class="objective">
+                <div class="objective translatable" 
+                     data-es="<strong>Objetivo:</strong> Análisis predictivo para pronóstico de ventas. Enfocado en descomponer manualmente la estacionalidad y tendencia de los datos (Time Series) para afinar predicciones y generar métricas de negocio precisas." 
+                     data-en="<strong>Objective:</strong> Predictive analysis for sales forecasting. Focused on manually decomposing data seasonality and trend (Time Series) to refine predictions and generate precise business metrics.">
                     <strong>Objetivo:</strong> Análisis predictivo para pronóstico de ventas. Enfocado en descomponer manualmente la estacionalidad y tendencia de los datos (Time Series) para afinar predicciones y generar métricas de negocio precisas.
                 </div>
                 <div class="tech-stack">
@@ -286,12 +379,14 @@
                     <span class="tech-badge">Pandas</span>
                     <span class="tech-badge">Statsmodels</span>
                 </div>
-                <a href="https://github.com/Pr1moBIT/SaleWhisperer" class="btn" target="_blank">Ver Código</a>
+                <a href="https://github.com/Pr1moBIT/SaleWhisperer" class="btn translatable" target="_blank" data-es="Ver Código" data-en="View Code">Ver Código</a>
             </div>
 
             <div class="card">
                 <h3>IsThisAHorse</h3>
-                <div class="objective">
+                <div class="objective translatable" 
+                     data-es="<strong>Objetivo:</strong> Proyecto de Visión Artificial desde cero. Manipulación matricial de píxeles, normalización manual de tensores y construcción de la arquitectura fundacional para clasificación de imágenes sin depender de modelos opacos." 
+                     data-en="<strong>Objective:</strong> Computer Vision project from scratch. Matrix manipulation of pixels, manual tensor normalization, and construction of the foundational architecture for image classification without relying on opaque models.">
                     <strong>Objetivo:</strong> Proyecto de Visión Artificial desde cero. Manipulación matricial de píxeles, normalización manual de tensores y construcción de la arquitectura fundacional para clasificación de imágenes sin depender de modelos opacos.
                 </div>
                 <div class="tech-stack">
@@ -299,12 +394,14 @@
                     <span class="tech-badge">OpenCV</span>
                     <span class="tech-badge">Deep Learning</span>
                 </div>
-                <a href="https://github.com/Pr1moBIT/IsThisAHorse" class="btn" target="_blank">Ver Código</a>
+                <a href="https://github.com/Pr1moBIT/IsThisAHorse" class="btn translatable" target="_blank" data-es="Ver Código" data-en="View Code">Ver Código</a>
             </div>
 
             <div class="card">
                 <h3>Salty or Sweet AI</h3>
-                <div class="objective">
+                <div class="objective translatable" 
+                     data-es="<strong>Objetivo:</strong> Lector de reseñas de películas usando NLP. Implementación manual de la limpieza de texto (Regex) y vectorización de palabras para comprender la lógica de frecuencias antes de aplicar clasificadores de lenguaje." 
+                     data-en="<strong>Objective:</strong> Movie review reader using NLP. Manual implementation of text cleaning (Regex) and word vectorization to understand frequency logic before applying language classifiers.">
                     <strong>Objetivo:</strong> Lector de reseñas de películas usando NLP. Implementación manual de la limpieza de texto (Regex) y vectorización de palabras para comprender la lógica de frecuencias antes de aplicar clasificadores de lenguaje.
                 </div>
                 <div class="tech-stack">
@@ -312,12 +409,14 @@
                     <span class="tech-badge">NLTK / Regex</span>
                     <span class="tech-badge">Scikit-Learn</span>
                 </div>
-                <a href="https://github.com/Pr1moBIT/Salty-or-Sweet-AI-Movie-Review-Reader" class="btn" target="_blank">Ver Código</a>
+                <a href="https://github.com/Pr1moBIT/Salty-or-Sweet-AI-Movie-Review-Reader" class="btn translatable" target="_blank" data-es="Ver Código" data-en="View Code">Ver Código</a>
             </div>
 
             <div class="card">
                 <h3>Fast and Curious</h3>
-                <div class="objective">
+                <div class="objective translatable" 
+                     data-es="<strong>Objetivo:</strong> Herramienta ágil de extracción web y Data Mining. Parseo manual de estructuras DOM (Scraping) y limpieza algorítmica de datos no estructurados para generar insights exploratorios rápidos y efectivos." 
+                     data-en="<strong>Objective:</strong> Agile web extraction and Data Mining tool. Manual parsing of DOM structures (Scraping) and algorithmic cleaning of unstructured data to generate quick and effective exploratory insights.">
                     <strong>Objetivo:</strong> Herramienta ágil de extracción web y Data Mining. Parseo manual de estructuras DOM (Scraping) y limpieza algorítmica de datos no estructurados para generar insights exploratorios rápidos y efectivos.
                 </div>
                 <div class="tech-stack">
@@ -325,15 +424,45 @@
                     <span class="tech-badge">BeautifulSoup</span>
                     <span class="tech-badge">Data Mining</span>
                 </div>
-                <a href="https://github.com/Pr1moBIT/Fast-and-Curious" class="btn" target="_blank">Ver Código</a>
+                <a href="https://github.com/Pr1moBIT/Fast-and-Curious" class="btn translatable" target="_blank" data-es="Ver Código" data-en="View Code">Ver Código</a>
             </div>
 
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2026 Gianpier Giandoni. Construyendo bases sólidas en Datos.</p>
+        <p class="translatable" 
+           data-es="&copy; 2026 Gianpier Giandoni. Construyendo bases sólidas en Datos." 
+           data-en="&copy; 2026 Gianpier Giandoni. Building solid foundations in Data.">
+           &copy; 2026 Gianpier Giandoni. Construyendo bases sólidas en Datos.
+        </p>
     </footer>
+
+    <!-- Lógica de Traducción (Switch) -->
+    <script>
+        const langToggle = document.getElementById('lang-toggle');
+        const elementsToTranslate = document.querySelectorAll('.translatable');
+        const labelEs = document.getElementById('label-es');
+        const labelEn = document.getElementById('label-en');
+
+        langToggle.addEventListener('change', () => {
+            const currentLang = langToggle.checked ? 'en' : 'es';
+            
+            // Actualizar el estilo de las etiquetas ES / EN
+            if(currentLang === 'en') {
+                labelEn.classList.add('active');
+                labelEs.classList.remove('active');
+            } else {
+                labelEs.classList.add('active');
+                labelEn.classList.remove('active');
+            }
+
+            // Cambiar el texto de todos los elementos con la clase "translatable"
+            elementsToTranslate.forEach(el => {
+                el.innerHTML = el.getAttribute(`data-${currentLang}`);
+            });
+        });
+    </script>
 
     <!-- Script para el fondo interactivo de nodos -->
     <script>
@@ -372,7 +501,6 @@
                 this.x += this.speedX;
                 this.y += this.speedY;
 
-                // Rebotar en los bordes
                 if (this.x > width || this.x < 0) this.speedX *= -1;
                 if (this.y > height || this.y < 0) this.speedY *= -1;
             }
@@ -401,7 +529,6 @@
                 particles[i].update();
                 particles[i].draw();
                 
-                // Conectar con otras partículas
                 for (let j = i; j < particles.length; j++) {
                     let dx = particles[i].x - particles[j].x;
                     let dy = particles[i].y - particles[j].y;
@@ -417,7 +544,6 @@
                     }
                 }
 
-                // Conectar con el ratón
                 if (mouse.x != null) {
                     let dxMouse = particles[i].x - mouse.x;
                     let dyMouse = particles[i].y - mouse.y;
